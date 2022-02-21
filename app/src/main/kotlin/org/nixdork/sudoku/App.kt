@@ -35,7 +35,7 @@ fun cross(A: String, B: String) =
     A.flatMap { a -> B.map { b -> "$a$b" } }
 
 //////////////////////////////// Unit Tests ////////////////////////////////
-val grid1 = "003020600900305001001806400008102900700000008006708200002609500800203009005010300"
+val grid1 = "..3.2.6..9..3.5..1..18.64....81.29..7.......8..67.82....26.95..8..2.3..9..5.1.3.."
 val grid2 = "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......"
 val hard1 = ".....6....59.....82....8....45........3........6..3.54...325..6.................."
 
@@ -62,15 +62,16 @@ fun test() {
 
 // Convert grid to a dict of possible values, {square: digits}, or return False if a contradiction is detected
 fun parseGrid(grid: String): Map<String, String> {
-    val values = squares.map { s -> s to digits }.toMap
+    //val values = squares.map { s -> s to digits }.toMap
+    return emptyMap()
 }
 
-// Convert grid into a map of {square: char} with "0" or "." for empties.
-fun gridValues(grid: String) {
-    val chars = grid.map { c -> 
-
-    }
-}
+// Convert grid into a map of {square: char} with "." for empties.
+fun gridValues(grid: String) =
+    grid.filter { c -> c in digits || c == '.' }
+        .map { it.toString() }
+        .zip(squares) { c, s -> s to c }
+        .toMap()
 
 //////////////////////////////// Constraint Propagation ////////////////////////////////
 
@@ -88,12 +89,14 @@ fun fromFile(fileName: String, sep: String?): List<String> {
         File(fileName).readLines()
     } else {
         File(fileName).readText(Charsets.UTF_8).split(sep)
-    }.filter { it.lenght == 0 }
+    }.filter { it.length == 0 }
 }
 
 //////////////////////////////// System test ////////////////////////////////
 
 fun main() {
     test()
+    gridValues(grid1)
+    gridValues(grid2)
     // println(squares)
 }
