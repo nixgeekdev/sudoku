@@ -1,6 +1,6 @@
-# A sudoku solver in Kotlin
+# A Study in Sudoku
 
-This is a port of the original Norvig solver written in python. 
+This is a port to kotlin of the original Norvig solver written in python. 
  
 Throughout this program we have:
 
